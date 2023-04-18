@@ -32,7 +32,7 @@ cd ../control_plane
 kubectl apply -f config/samples/infrastructure_v1beta1_jujucluster.yaml -n default
 
 # wait for the cluster to be ready
-kubectl wait clusters --all -n default --for condition=Ready --timeout=1800s
+kubectl wait clusters --all -n default --for condition=Ready --timeout=1801s
 
 # # apply the control plane sample from the control plane repo
 # kubectl apply -f config/samples/controlplane_v1beta1_charmedk8scontrolplane.yaml -n default
