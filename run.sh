@@ -28,11 +28,11 @@ echo $1 | base64 -d > ./credentials.yaml
 kubectl create secret generic jujucluster-sample-credential-secret --from-file=value=./credentials.yaml -n default
 
 # apply the cluster sample from the control plane repo
-cd ../control_plane
-kubectl apply -f config/samples/infrastructure_v1beta1_jujucluster.yaml -n default
+# cd ../control_plane
+# kubectl apply -f config/samples/infrastructure_v1beta1_jujucluster.yaml -n default
 
 # wait for the cluster to be ready
-kubectl wait clusters --all -n default --for condition=Ready --timeout=1801s
+# kubectl wait clusters --all -n default --for condition=Ready --timeout=1801s
 
 # # apply the control plane sample from the control plane repo
 # kubectl apply -f config/samples/controlplane_v1beta1_charmedk8scontrolplane.yaml -n default
