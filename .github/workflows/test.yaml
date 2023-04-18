@@ -5,10 +5,12 @@ jobs:
   e2e:
     name: Integration Tests
     runs-on: ubuntu-22.04
+    env:
+      CREDENTIALS: ${{ secrets.CREDENTIALS_YAML }}
     steps:
     - name: Check out code
       uses: actions/checkout@v3
     - name: Setup env
       run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
     - name: Run tests
-      run: ./run.sh ${{ secrets.CREDENTIALS_YAML }}
+      run: ./run.sh 
