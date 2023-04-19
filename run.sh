@@ -30,7 +30,7 @@ REGISTRY="localhost:32000"
 # echo "bootstrap provider deployed"
 
 echo "creating cloud secret"
-echo $CREDENTIALS | base64 --decode > ./credentials.yaml
+echo "$CREDENTIALS" | base64 --decode > ./credentials.yaml
 # kubectl create secret generic jujucluster-sample-credential-secret --from-file=value=./credentials.yaml -n default
 echo "cloud secret created"
 
