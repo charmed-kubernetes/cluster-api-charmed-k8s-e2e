@@ -12,7 +12,7 @@ jobs:
     #   run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
     - name: Run tests
       env:
-        CREDENTIALS: ${{ secrets.TEST_SECRET }}
+        CREDENTIALS: ${{ secrets.CREDENTIALS_YAML }}
       run: |
           echo $CREDENTIALS | base64 --decode > cert.der
       # run: ./run.sh 
