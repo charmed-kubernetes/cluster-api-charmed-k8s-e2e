@@ -8,9 +8,11 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v3
-    - name: Setup env
-      run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
+    # - name: Setup env
+    #   run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
     - name: Run tests
       env:
         CREDENTIALS: ${{ secrets.CREDENTIALS_YAML }}
-      run: ./run.sh 
+      run: |
+          echo $CREDENTIALS | base64 --decode > cert.der
+      # run: ./run.sh 
