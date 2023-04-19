@@ -30,3 +30,7 @@ jobs:
       with:
         name: test-run-artifacts
         path: tmp
+    - name: cleanup
+      if: ${{ failure() }}
+       run: |
+         kubectl delete cluster cluster-sample
