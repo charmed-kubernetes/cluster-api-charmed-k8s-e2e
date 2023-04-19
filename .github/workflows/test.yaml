@@ -4,7 +4,6 @@ on: [pull_request]
 jobs:
   e2e:
     name: Integration Tests
-    shell: bash
     runs-on: ubuntu-22.04
     steps:
     - name: Check out code
@@ -12,6 +11,7 @@ jobs:
     # - name: Setup env
     #   run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
     - name: Run tests
+      shell: bash
       env:
         CREDENTIALS: ${{ secrets.CREDENTIALS_YAML }}
       run: |
