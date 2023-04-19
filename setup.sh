@@ -8,20 +8,20 @@ set -euxo pipefail
 
 # ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
 
-# [ $# -ne 3 ] && { echo "not enough arguments provided, must provide infrastructure provider, control plane provider, and bootstrap provider URLs as positional arguments"; exit 1; }
+[ $# -ne 3 ] && { echo "not enough arguments provided, must provide infrastructure provider, control plane provider, and bootstrap provider URLs as positional arguments"; exit 1; }
 
-# sudo snap install juju --classic
-# sudo snap install microk8s --classic
-# sudo snap install go --channel 1.19/stable --classic
-# sudo snap install kubectl --classic
-# sudo microk8s enable registry
-# sudo microk8s enable "metallb:10.246.153.243-10.246.153.243"
-# mkdir -p "$HOME/.kube"
-# sudo cat /var/snap/microk8s/current/credentials/client.config > "$HOME/.kube/config"
+sudo snap install juju --classic
+sudo snap install microk8s --classic
+sudo snap install go --channel 1.19/stable --classic
+sudo snap install kubectl --classic
+sudo microk8s enable registry
+sudo microk8s enable "metallb:10.246.153.243-10.246.153.243"
+mkdir -p "$HOME/.kube"
+sudo cat /var/snap/microk8s/current/credentials/client.config > "$HOME/.kube/config"
 
-# git clone $1 infra
-# git clone $2 control_plane
-# git clone $3 bootstrap
+git clone $1 infra
+git clone $2 control_plane
+git clone $3 bootstrap
 
 
 

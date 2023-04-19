@@ -8,10 +8,25 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v3
-    # - name: Setup env
-    #   run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
+    - name: Setup env
+      run: ./setup.sh https://github.com/charmed-kubernetes/cluster-api-provider-juju.git https://github.com/charmed-kubernetes/cluster-api-control-plane-provider-charmed-k8s.git https://github.com/charmed-kubernetes/cluster-api-bootstrap-provider-charmed-k8s.git
     - name: Run tests
       shell: bash
       env:
         CREDENTIALS: ${{ secrets.CREDENTIALS_YAML }}
       run: ./run.sh 
+    - name: Setup Debug Artifact Collection
+      if: ${{ failure() }}
+      run: mkdir tmp
+    - name: Collect Logs
+      if: ${{ failure() }}
+      run: |
+        kubectl logs -n capi-juju-system deployment/capi-juju-controller-manager > tmp/capi-juju-controller-manager.txt
+        kubectl logs -n capi-charmed-k8s-control-plane-system deployment/capi-ck8s-control-plane-controller-manager > tmp/capi-ck8s-control-plane-controller-manager.txt
+        kubectl logs -n capi-charmed-k8s-bootstrap-system deployment/capi-charmed-k8s-bootstrap-controller-manager > tmp/capi-charmed-k8s-bootstrap-controller-manager.txt
+    - name: Upload debug artifacts
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-run-artifacts
+        path: tmp
