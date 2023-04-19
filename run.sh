@@ -5,33 +5,33 @@ set -euo pipefail
 
 REGISTRY="localhost:32000"
 
-# deploy the infra provider
-echo "deploying infra provider"
-cd ./infra
-IMG="$REGISTRY/capi-juju-controller:latest"
-make docker-build docker-push deploy "IMG=$IMG" "DEPLOY_IMG=$IMG"
-kubectl rollout status -n capi-juju-system deployment/capi-juju-controller-manager --timeout 1m
-echo "infra provider deployed"
+# # deploy the infra provider
+# echo "deploying infra provider"
+# cd ./infra
+# IMG="$REGISTRY/capi-juju-controller:latest"
+# make docker-build docker-push deploy "IMG=$IMG" "DEPLOY_IMG=$IMG"
+# kubectl rollout status -n capi-juju-system deployment/capi-juju-controller-manager --timeout 1m
+# echo "infra provider deployed"
 
-# deploy the control plane provider
-echo "deploying control plane provider"
-cd ../control_plane
-IMG="$REGISTRY/capi-control-plane-charmed-k8s-controller:latest"
-make docker-build docker-push deploy "IMG=$IMG" "DEPLOY_IMG=$IMG"
-kubectl rollout status -n capi-charmed-k8s-control-plane-system deployment/capi-ck8s-control-plane-controller-manager --timeout 1m
-echo "control plane provider deployed"
+# # deploy the control plane provider
+# echo "deploying control plane provider"
+# cd ../control_plane
+# IMG="$REGISTRY/capi-control-plane-charmed-k8s-controller:latest"
+# make docker-build docker-push deploy "IMG=$IMG" "DEPLOY_IMG=$IMG"
+# kubectl rollout status -n capi-charmed-k8s-control-plane-system deployment/capi-ck8s-control-plane-controller-manager --timeout 1m
+# echo "control plane provider deployed"
 
-# deploy the bootstrap provider
-echo "deploying bootstrap provider"
-cd ../bootstrap
-IMG="$REGISTRY/capi-bootstrap-charmed-k8s-controller:latest"
-make docker-build docker-push deploy "IMG=$IMG" "DEPLOY_IMG=$IMG"
-kubectl rollout status -n capi-charmed-k8s-bootstrap-system deployment/capi-charmed-k8s-bootstrap-controller-manager --timeout 1m
-echo "bootstrap provider deployed"
+# # deploy the bootstrap provider
+# echo "deploying bootstrap provider"
+# cd ../bootstrap
+# IMG="$REGISTRY/capi-bootstrap-charmed-k8s-controller:latest"
+# make docker-build docker-push deploy "IMG=$IMG" "DEPLOY_IMG=$IMG"
+# kubectl rollout status -n capi-charmed-k8s-bootstrap-system deployment/capi-charmed-k8s-bootstrap-controller-manager --timeout 1m
+# echo "bootstrap provider deployed"
 
 echo "creating cloud secret"
-echo $CREDENTIALS | base64 -d > ./credentials.yaml
-kubectl create secret generic jujucluster-sample-credential-secret --from-file=value=./credentials.yaml -n default
+echo $CREDENTIALS | base64 --decode > ./credentials.yaml
+# kubectl create secret generic jujucluster-sample-credential-secret --from-file=value=./credentials.yaml -n default
 echo "cloud secret created"
 
 # apply the cluster sample from the control plane repo
