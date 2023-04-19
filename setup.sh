@@ -21,6 +21,8 @@ username = ${DOCKER_USERNAME}
 password = ${DOCKER_TOKEN}
 EOF
 
+sudo cat var/snap/microk8s/current/args/containerd-template.toml
+
 sudo microk8s stop
 sudo microk8s start
 sudo microk8s status --wait-ready
