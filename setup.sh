@@ -14,6 +14,15 @@ sudo snap install juju --classic
 sudo snap install microk8s --classic
 sudo snap install go --channel 1.19/stable --classic
 sudo snap install kubectl --classic
+
+sudo cat >> /var/snap/microk8s/current/args/containerd-template.toml << EOF
+[plugins."io.containerd.grpc.v1.cri".registry.configs."registry-1.docker.io".auth]
+username = ${DOCKER_USERNAME}
+password = ${DOCKER_TOKEN}
+EOF
+
+sudo microk8s stop
+sudo microk8s start
 sudo microk8s status --wait-ready
 sudo microk8s enable registry
 sudo microk8s enable "metallb:10.246.153.243-10.246.153.243"
