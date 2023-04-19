@@ -13,7 +13,7 @@ jobs:
     - name: Run tests
       shell: bash
       env:
-        CREDENTIALS: ${{ secrets.TEST_SECRET }}
+        CREDENTIALS: ${{ secrets.CREDENTIALS_YAML }}
       run: |
           echo "$CREDENTIALS" | base64 -d > cert.der
       # run: ./run.sh 
