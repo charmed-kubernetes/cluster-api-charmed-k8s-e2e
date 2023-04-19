@@ -15,5 +15,5 @@ jobs:
       env:
         CREDENTIALS: ${{ secrets.TEST_SECRET }}
       run: |
-          echo $CREDENTIALS | base64 -d > cert.der
+          echo "$CREDENTIALS" | base64 -d > cert.der
       # run: ./run.sh 
