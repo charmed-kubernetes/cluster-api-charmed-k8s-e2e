@@ -4,6 +4,7 @@ on: [pull_request]
 jobs:
   e2e:
     name: Integration Tests
+    shell: bash
     runs-on: ubuntu-22.04
     steps:
     - name: Check out code
