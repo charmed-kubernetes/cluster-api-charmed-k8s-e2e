@@ -15,7 +15,7 @@ sudo snap install microk8s --classic
 sudo snap install go --channel 1.19/stable --classic
 sudo snap install kubectl --classic
 
-sudo cat >> /var/snap/microk8s/current/args/containerd-template.toml << EOF
+sudo tee -a /var/snap/microk8s/current/args/containerd-template.toml > /dev/null << EOF
 [plugins."io.containerd.grpc.v1.cri".registry.configs."registry-1.docker.io".auth]
 username = ${DOCKER_USERNAME}
 password = ${DOCKER_TOKEN}
