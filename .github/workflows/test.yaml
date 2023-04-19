@@ -4,7 +4,8 @@ on: [pull_request]
 jobs:
   e2e:
     name: Integration Tests
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
+    timeout-minutes: 120
     steps:
     - name: Check out code
       uses: actions/checkout@v3
@@ -32,5 +33,5 @@ jobs:
         path: tmp
     - name: cleanup
       if: ${{ failure() }}
-       run: |
-         kubectl delete cluster cluster-sample
+      run: |
+        kubectl delete cluster cluster-sample
