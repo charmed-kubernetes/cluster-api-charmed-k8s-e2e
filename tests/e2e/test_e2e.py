@@ -18,7 +18,7 @@ async def test_build_and_deploy(ops_test):
     assert len(ubuntu_app.units) == 1
     ubuntu_unit = ubuntu_app.units[0]
 
-    action = await unit.run('snap install microk8s --classic')
+    action = await ubuntu_unit.run('snap install microk8s --classic')
     log.info(f"action results: {action.results}")
     await ops_test.model.wait_for_idle()
 
