@@ -24,7 +24,6 @@ async def test_build_and_deploy(ops_test):
         "juju",
         "exec",
         "--unit ubuntu/0 snap install microk8s",
-        kubeconfig_path,
     )
     if retcode != 0:
         log.error(f"retcode: {retcode}")
