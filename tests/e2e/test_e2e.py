@@ -24,7 +24,7 @@ async def test_build_and_deploy(ops_test):
     cmd = (
            "juju exec "
            "--unit ubuntu/0 "
-           "snap install microk8s --classic"
+           "'snap install microk8s --classic'"
     )
     retcode, stdout, stderr = await ops_test.run(*shlex.split(cmd))
     if retcode != 0:
