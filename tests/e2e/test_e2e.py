@@ -1,12 +1,16 @@
 import logging
 import pytest
 import shlex
+import os
 
 log = logging.getLogger(__name__)
 
 @pytest.mark.abort_on_fail
 async def test_build_and_deploy(ops_test):
+    log.info("cwd")
+    log.info(os.getcwd())
     log.info("Deploying ubuntu charm")
+    
     ubuntu_app = await ops_test.model.deploy(
         'ubuntu',
         application_name='ubuntu',
