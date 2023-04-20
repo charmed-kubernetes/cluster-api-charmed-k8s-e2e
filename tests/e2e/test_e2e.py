@@ -16,10 +16,24 @@ async def test_build_and_deploy(ops_test):
 
     # get the one and only unit
     assert len(ubuntu_app.units) == 1
-    ubuntu_unit = ubuntu_app.units[0]
+    # ubuntu_unit = ubuntu_app.units[0]
 
-    action = await ubuntu_unit.run('snap install microk8s --classic')
-    log.info(f"action results: {action.results}")
+    # action = await ubuntu_unit.run('snap install microk8s --classic')
+    # log.info(f"action results: {action.results}")
+    retcode, stdout, stderr = await ops_test.run(
+        "juju",
+        "exec",
+        "--unit ubuntu/0 snap install microk8s",
+        kubeconfig_path,
+    )
+    if retcode != 0:
+        log.error(f"retcode: {retcode}")
+        log.error(f"stdout:\n{stdout.strip()}")
+        log.error(f"stderr:\n{stderr.strip()}")
+        pytest.fail("Failed to install microk8s")
+    
+    log.info(f"installation results: {stdout}")
+
     await ops_test.model.wait_for_idle()
 
 
