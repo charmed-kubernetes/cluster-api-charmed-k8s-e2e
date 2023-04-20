@@ -11,7 +11,7 @@ async def test_build_and_deploy(ops_test):
     log.info("data files")
     log.info(os.listdir("tests/data"))
     log.info("copying file")
-    shutil.copyfile("tests/data/containerd_proxy_config.txt", ops_test.tmp_path)
+    shutil.copyfile("tests/data/containerd_proxy_config.txt", ops_test.tmp_path / "containerd_proxy_config.txt")
     log.info("temp path")
     log.info(os.listdir(ops_test.tmp_path))
     log.info("Deploying ubuntu charm")
