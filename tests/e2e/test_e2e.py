@@ -1,5 +1,6 @@
 import logging
 import pytest
+import shlex
 
 log = logging.getLogger(__name__)
 
@@ -20,11 +21,12 @@ async def test_build_and_deploy(ops_test):
 
     # action = await ubuntu_unit.run('snap install microk8s --classic')
     # log.info(f"action results: {action.results}")
-    retcode, stdout, stderr = await ops_test.run(
-        "juju",
-        "exec",
-        "--unit ubuntu/0 snap install microk8s",
+    cmd = (
+           "juju exec "
+           "--unit ubuntu/0 "
+           "snap install microk8s"
     )
+    retcode, stdout, stderr = await ops_test.run(*shlex.split(cmd))
     if retcode != 0:
         log.error(f"retcode: {retcode}")
         log.error(f"stdout:\n{stdout.strip()}")
