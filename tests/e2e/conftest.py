@@ -105,10 +105,10 @@ class Helpers:
     async def run_cmd(unit, cmd_desc, cmd_string, fail_msg, log_results=False):
         log.info(cmd_desc)
         action = await unit.run(cmd_string)
-        action await action.wait()
+        action = await action.wait()
         if log_results:
             log.info(action.results)
-        code = action.results.get("Code", self.results.get("return-code"))
+        code = action.results.get("Code", action.results.get("return-code"))
         if code is None:
             log.error(f"Failed to find the return code in {action.results}")
             pytest.fail(f"Failed to find the return code in {action.results}")
