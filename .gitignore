@@ -1,0 +1,3 @@
+.kube/
+.tox/
+**/__pycache__/
