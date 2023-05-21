@@ -107,7 +107,7 @@ class Helpers:
         action = await unit.run(cmd_string)
         if log_results:
             log.info(action.results)
-        if action.results["Code"] != "0":
+        if action.results["return-code"] != 0:
             log.error(action.results)
             pytest.fail(fail_msg)
 
